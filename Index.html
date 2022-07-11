@@ -1,0 +1,171 @@
+  
+<!-- I did my best to fully document this page so I hope you find everything well explained and detailed for your understanding :D
+And if you do, a like/comment/pin would be much apprecieated :) -->
+
+<!-- PS: make sure to interact with everything for hidden features -->
+
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"> <!-- stylesheet of all the used icons -->
+
+<div class="block-mobile-landscape">Please rotate your device</div> <!-- this div will be visible only when the user has a mobile in landscape mode as it is too small for the content -->
+  
+  <div class="slider" id="slider">
+
+    <div class="container" id="container">
+
+      <div class="left" id="left">
+
+        <div class="content login active" id="login">
+          <div class="title">Login</div>
+          <!-- every form's validation and sumbission will be done with js -->
+          <form method="post" novalidate>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="user"><i class="uil uil-user"></i>  Email or phone number</label></div>
+              <!-- I left these icons in case someone wants to use them with server side development so they won't be used here -->
+              <i class="uil uil-check-circle validation-icon valid input-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon"></i>
+              <input name="user" type="text" class="input" required>
+              <!-- more on this span in the css -->
+              <span class="border-corner-cover"></span>
+            </div>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="password"><i class="uil uil-lock-alt"></i>  Password</label></div>
+              <i class="uil uil-check-circle validation-icon valid input-icon password-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon password-icon"></i>
+              <input name="password" type="password" class="input password" required>
+              <span class="border-corner-cover"></span>
+              <i class="uil uil-eye input-icon password-eye"><i class="uil uil-line-alt password-eye-line"></i><span data-tooltip = "show password"></span></i>
+            </div>
+            <div class="info">
+              <div class="presubmition-options">
+                  <label for="remember-me" class="checkmark-label"><input type="checkbox"><span class="checkmark"></span><span>Remember me</span></label>
+                  <span class="forgot-pass" id="forgot-pass">Forgot password?</span>
+              </div>
+            </div>
+            <button type="submit" class="button">Sign In</button>
+          </form>
+          <!-- the button responsible for sliding -->
+          <div class="slide-button-container">Don't have an account? <span id="signup-slide-button" class="slide-button">Sign Up</span></div>
+        </div>
+
+        <div class="content recover" id="recover">
+          <div class="title">Recover Account</div>
+          <form method="post" novalidate>
+            <div class="recovery-details">Enter your email or phone and we'll send you a link to get back into your account.</div>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="user"><i class="uil uil-mailbox"></i>  Email or phone</label></div>
+              <i class="uil uil-check-circle validation-icon valid input-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon"></i>
+              <input name="user" type="text" class="input" required>
+              <span class="border-corner-cover"></span>
+            </div>
+            <button type="submit" class="button send-verification">Send Link</button>
+            <div class="or">OR</div>
+            <div class="new-account"><span id="new-account">Create New Account</span></div>
+          </form>
+          <div class="slide-button-container"><span id="back-to-login" class="slide-button back-to-login">Back to Login</span></div>
+        </div>
+      </div>
+      
+      <div class="right" id="right">
+        <div class="content">
+
+          <div class="title">Sign Up</div>
+          <form method="post" novalidate>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="user" id="user-label"><i class="uil uil-envelope-alt"></i>  Email or phone number</label></div>
+              <i class="uil uil-check-circle validation-icon valid input-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon"></i>
+              <input name="user" type="text" class="input" id="user" required>
+              <span class="border-corner-cover"></span>
+            </div>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="password" id="password-label"><i class="uil uil-lock"></i>  Password</label></div>
+              <i class="uil uil-check-circle validation-icon valid input-icon password-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon password-icon"></i>
+              <input name="password" type="password" class="input password" id="password" required>
+              <span class="border-corner-cover"></span>
+              <i class="uil uil-eye input-icon password-eye"><i class="uil uil-line-alt password-eye-line"></i><span data-tooltip = "show password"></span></i>
+              <div class="password-requirements-container" id="password-requirements-container">
+                <ul class="password-requirements" id="password-requirements">
+                  <li id="password-requirements-length"><i class="uil uil-info-circle"></i> Between 8 and 32 characters</li>
+                  <li id="password-requirements-number"><i class="uil uil-info-circle"></i> Contains at least 1 number</li>
+                  <li id="password-requirements-lower"><i class="uil uil-info-circle"></i> Contains at least 1 lowercase letter</li>
+                  <li id="password-requirements-upper"><i class="uil uil-info-circle"></i> Contains at least 1 uppercase letter</li>
+                  <li id="password-requirements-special"><i class="uil uil-info-circle"></i> Contains at least 1 special character</li>
+                </ul>
+              </div>
+            </div>
+            <div class="info">
+              <div class="label-wrapper"><label class="label" for="confirm-password" id="confirm-password-label"><i class="uil uil-lock-access"></i>  Confirm password</label></div>
+              <i class="uil uil-check-circle validation-icon valid input-icon password-icon"></i>
+              <i class="uil uil-times-circle validation-icon invalid input-icon password-icon"></i>
+              <input name="confirm-password" type="password" class="input password" id="confirm-password" required>
+              <span class="border-corner-cover"></span>
+              <i class="uil uil-eye input-icon password-eye"><i class="uil uil-line-alt password-eye-line"></i><span data-tooltip = "show password"></span></i>
+            </div>
+            <div class="info">
+              <label for="tos" class="checkmark-label tos"><input type="checkbox" required><span class="checkmark"></span><span class="tos-text">I HAVE MOST DEFINITELY SPENT 10 HOURS OF MY TIME IN ORDER TO HAVE READ AND AGREED TO THE <a>TERMS OF SERVICE</a> AND <a> PRIVACY POLICY</a></span></label>
+            </div>
+            <button type="submit" class="button">Register</button>
+          </form>
+          <div class="slide-button-container">Already have an account? <span id="login-slide-button" class="slide-button">Login</span></div>
+
+        </div>
+        
+      </div>
+
+    </div>
+
+  </div>
+  
+  <!-- Everything below is for extra themes and will not be documented -->
+  <i class="uil uil-sort-amount-up open-themes-button" id="open-themes"></i>
+  <div class="themes" id="themes">
+    <i class="uil uil-sort-amount-down close-themes-button" id="close-themes"></i>
+    <span> Here are some other themes which I made that you can choose from: </span>
+    <div class="theme-styles-container">
+      <label for="sakura" class="radio-label theme-label"><input type="radio" name="theme" checked><span class="radio"></span>Sakura (default)</label>
+      <label for="winter" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Winter</label> 
+      <label for="fall" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Fall</label>
+      <label for="sunset" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Sunset</label>
+      <label for="mountain" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Mountain</label>
+      <label for="city" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>City Lights</label>
+      <label for="ocean" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Ocean</label>
+      <label for="lanterns" class="radio-label theme-label"><input type="radio" name="theme"><span class="radio"></span>Floating Lanterns</label>
+    </div>
+    <span>*Theme images are in 4k-8k resolution so please wait for them to load.</span>
+    <div class="extra-theme-options">
+      <span class="add-own-theme" id="add-own-theme">Add your own theme</span>
+      <span class="remove-themes" id="remove-themes">Remove palette</span>
+    </div>
+    <div class="own-theme">
+      <span class="back-to-themes" id="back-from-own-theme"><i class="uil uil-arrow-left"></i>Back </span>
+      <span class="clear-custom-theme" id="clear-custom-theme">Clear Custom Theme</span>
+      <form id="custom-theme-form" autocomplete="off">
+        <div><label for="--background-image">Background: </label><input name="--background-image" class="own-theme-input" placeholder="An image, usually of nature"></div>
+        <div class="colors">
+          <div><input type="color" name="--primary-color" class="own-theme-input"><label for="--primary-color">Primary-Color</label></div>
+          <div><input type="color" name="--secondary-color" class="own-theme-input"><label for="--secondary-color">Secondary-Color</label></div>
+          <div><input type="color" name="--body-color" class="own-theme-input"><label for="--body-color">Body-Color</label></div>
+          <div><input type="color" name="--title-color" class="own-theme-input"><label for="--title-color">Title-Color: </label></div>
+          <div><input type="color" name="--text-color" class="own-theme-input"><label for="--text-color"></label>Text-Color</div>
+          <div><input type="color" name="--valid-color" class="own-theme-input"><label for="--valid-color"></label>Valid-Color</div>
+          <div><input type="color" name="--invalid-color" class="own-theme-input"><label for="--invalid-color"></label>Invalid-Color</div>
+        </div>
+        <input type="submit" class="button" value="Apply Theme">
+      </form>
+    </div>
+    <div class="remove-themes-confirm-container">
+      <span>Are you sure you would like to remove this palette completely?</span>
+      <span>You will be unable to pick or make new themes unless you refresh the page.</span> 
+      <div>
+        <p><a href="https://pk.linkedin.com/in/azeem-safi">Azeem Safi Developer</a></p>
+        <span class="back-to-themes" id="back-from-remove-themes"><i class="uil uil-arrow-left"></i>Back</span>
+        <span class="remove-themes-confirm" id="remove-themes-confirm">CONFIRM</span>
+      </div>
+    </div>
+  </div>
+
+
+
+
