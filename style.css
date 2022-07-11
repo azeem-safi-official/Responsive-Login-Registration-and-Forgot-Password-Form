@@ -1,0 +1,979 @@
+/* css variables */
+:root {
+  --background-image: url();
+  --primary-color: #8c275f;
+  --secondary-color: #f74988;
+  --body-color: #011140;
+  --body-color-gradient: #011140ec;
+  --title-color: #e4e9f2;
+  --text-color: #bcbdc0;
+  --valid-color: #3de02b;
+  --invalid-color: #f11439;
+  --transparent: #00000000;
+  --font-family: "Poppins", sans-serif;
+  --large-font-size: calc(3rem + 1.625vh);
+  --medium-font-size: min(calc(1rem + 0.725vh), 1.25rem);
+  --small-font-size: min(calc(0.675rem + 0.5vh), 1rem);
+}
+/* NOTE: all other custom themes' variables are at the end */
+
+/* making sass variables out of the css variables just for ease of use */
+$primary: var(--primary-color);
+$secondary: var(--secondary-color);
+$body-color: var(--body-color);
+$body-color-gradient: var(--body-color-gradient);
+$title-color: var(--title-color);
+$text-color: var(--text-color);
+$valid: var(--valid-color);
+$invalid: var(--invalid-color);
+$tooltip: var(--tooltip-color);
+$transparent: var(--transparent);
+$font: var(--font-family);
+$large: var(--large-font-size);
+$medium: var(--medium-font-size);
+$small: var(--small-font-size);
+$background-image: var(--background-image);
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  transition: font-size 0.00001s;
+}
+
+/* overriding the browser's autofill styles */
+input,
+textarea,
+select {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: $title-color;
+    -webkit-box-shadow: 0 0 0px 1000px $transparent inset;
+    box-shadow: 0 0 0px 1000px $transparent inset;
+    transition: background-color 5000s 0s;
+    &::first-line {
+      font-size: $medium;
+    }
+  }
+  &::placeholder {
+    color: $text-color;
+  }
+}
+
+/* hiding the default checkbox and styling a custom one */
+input[type="checkbox"] {
+  display: none;
+  + .checkmark {
+    float: left;
+    height: $medium;
+    width: $medium;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+    align-self: center;
+    border: 2px solid $primary;
+    border-radius: calc(var(--medium-font-size) / 3);
+    transition: 0.25s;
+    &::after {
+      content: "";
+      position: relative;
+      opacity: 0;
+    }
+  }
+  &:checked {
+    + .checkmark {
+      background: $secondary;
+      border-color: $secondary;
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.checkmark-label {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    .checkmark {
+      border-color: $secondary;
+    }
+  }
+  .checkmark::after {
+    display: block;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, calc(-50% - 2px)) rotate(45deg);
+    transition: all 0.25s;
+  }
+}
+
+/* hiding the default radio and styling a custom one */
+input[type="radio"] {
+  display: none;
+  + .radio {
+    float: left;
+    height: $medium;
+    width: $medium;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+    align-self: center;
+    border: 2px solid $primary;
+    border-radius: 50%;
+    transition: 0.125s;
+    &::after {
+      content: "";
+      position: relative;
+      opacity: 0;
+    }
+  }
+  &:checked {
+    + .radio {
+      background: $secondary;
+      border-color: $secondary;
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  cursor: pointer;
+  &:hover {
+    .radio {
+      background-color: rgba($secondary, 0.25);
+      border-color: $secondary;
+    }
+  }
+  .radio::after {
+    display: block;
+    left: 50%;
+    top: 50%;
+    width: 5px;
+    height: 10px;
+    width: 50%;
+    height: 50%;
+    transform: translate(-50%, -50%);
+    background: $title-color;
+    border-radius: 50%;
+    transition: all 0.1s;
+  }
+}
+
+/* valid and invalid classes to override color styling on validation */
+.valid {
+  color: $valid !important;
+  border-color: $valid !important;
+}
+
+.invalid {
+  color: $invalid !important;
+  border-color: $invalid !important;
+}
+
+body {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+  font-family: $font;
+  font-size: $medium;
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+  background: $background-image no-repeat center center fixed;
+  background-size: cover;
+}
+
+.block-mobile-landscape {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: $body-color;
+  font-size: 2.5rem;
+  text-transform: capitalize;
+  background: linear-gradient(to top, $body-color-gradient, $primary 150%),
+    $background-image no-repeat center center fixed;
+  background-size: cover;
+}
+
+.slider {
+  width: 90%;
+  max-height: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 0;
+  position: absolute;
+  transition: 0.9s;
+  &.slide {
+    margin-left: 10%;
+  }
+}
+
+.container {
+  width: 200%;
+  height: 100%;
+  margin-left: 100%;
+  position: relative;
+  left: 0;
+  left: -100%;
+  background: linear-gradient(to top, $body-color-gradient, $primary 250%);
+  transition: 0.9s;
+  &.slide {
+    margin-left: 0;
+  }
+}
+
+.left,
+.right {
+  width: 50.1%; /* width is 50.1% (not 50%) to avoid weird visual glitching that usually happens on exact measures */
+  height: 100%;
+  position: absolute;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+.content {
+  width: min(100%, 350px);
+  padding: 1rem;
+  margin: 0 auto;
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all ease 0.9s;
+  &.login {
+    top: 0;
+    transform: translate(-50%, -120%);
+    &.active {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  &.recover {
+    top: 120%;
+    transform: translate(-50%, 0);
+    &.active {
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}
+
+.title {
+  font-size: $large;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: $title-color;
+}
+
+.info {
+  position: relative;
+}
+
+/* when the label rests on the input border, either the border will go through it or we can give it a solid background which won't work because the container background is a tranclusent gradient. So we will use a trick where the label has an after class to imitate the the border with a label wrapper that contains it from overflowing */
+.label-wrapper {
+  width: calc(100% - 3.25rem);
+  overflow: hidden;
+  position: absolute;
+  transform: translateY(27px);
+  margin-left: 1.5rem;
+  font-size: $medium;
+  color: $primary;
+  transition: 0.4s;
+  background: inherit;
+  pointer-events: none;
+  user-select: none;
+  /* I will be using a hover class which I will add with javascript to improve hover effects */
+  &.hover {
+    color: $secondary;
+  }
+  /* same this with focus however focus will remain if element has user input */
+  &.active {
+    font-size: 1rem;
+    transform: translateY(-1.5px);
+    color: $secondary;
+  }
+}
+
+.label {
+  &.active::after {
+    content: "";
+    background: $secondary;
+    height: 3px;
+    margin-left: 3px;
+    position: absolute;
+    width: 500px;
+    top: 50%;
+  }
+  &.active.valid::after {
+    background: $valid;
+  }
+  &.active.invalid::after {
+    background: $invalid;
+  }
+}
+
+/* the method above works great except for the corner where it looks disconnected because of the border radius, this is where the span class will mask that */
+.border-corner-cover {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  width: 30px;
+  height: 60px;
+  border: 3px solid $primary;
+  border-left: none; 
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  transition: 0.4s;
+  &.hover, &.active {
+    border-top-color: $secondary;
+    border-right-color: $secondary;
+    border-bottom-color: $secondary;
+  }
+}
+
+.input {
+  width: 100%;
+  border: 3px solid $primary;
+  background-color: transparent;
+  border-radius: 50px;
+  transition: 0.4s;
+  height: 60px;
+  color: $title-color;
+  padding: 0 3.5rem 0 1.5rem;
+  margin: 0.5rem 0;
+  font-size: $medium;
+  position: relative;
+  &::placeholder {
+    color: $invalid;
+  }
+  &:focus {
+    outline: none;
+  }
+  &.hover {
+    border-color: $secondary;
+  }
+  &.active {
+    border-top: none;
+    border-color: $secondary;
+  }
+}
+
+.password {
+  padding-right: 5rem; /* password inputs have more padding for the eye-icons */
+}
+
+.button {
+  width: 100%;
+  background-color: $primary;
+  font-size: $medium;
+  border: 0;
+  border-radius: 5px;
+  word-spacing: 4px;
+  letter-spacing: 1px;
+  padding: 1rem;
+  text-transform: capitalize;
+  font-weight: 600;
+  color: $title-color;
+  line-height: 16px;
+  margin: 0.5rem 0;
+  transition: all 0.25s;
+  cursor: pointer;
+  &:hover {
+    background-color: $secondary;
+  }
+}
+
+.input-icon {
+  position: absolute;
+  right: 1rem;
+  transform: translateY(1.3rem);
+  font-size: 2rem;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.validation-icon {
+  transition: 0.4s;
+  &.active {
+    opacity: 1;
+  }
+}
+
+.password-eye {
+  opacity: 1;
+  position: absolute;
+  z-index: 2;
+  color: $primary;
+  &.hover {
+    color: $secondary;
+  }
+  &.active {
+    color: $secondary;
+  }
+  &.visible {
+    .password-eye-line {
+      opacity: 0;
+    }
+  }
+}
+
+.password-eye-line {
+  position: absolute;
+  transform: translateX(-2rem);
+  bottom: 0.812px;
+}
+
+/* password validation icons are pushed more to the right to give space for the eye-icons */
+.password-icon {
+  right: 3rem;
+}
+
+.presubmition-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  font-size: $small;
+  padding: 0 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.forgot-pass {
+  float: right;
+  text-decoration: underline;
+  color: $secondary;
+  cursor: pointer;
+}
+
+.slide-button-container {
+  margin-top: 0.5rem;
+  color: $title-color;
+}
+
+.slide-button {
+  color: $secondary;
+  cursor: pointer;
+}
+
+.recovery-details {
+  padding: 0 0.5rem;
+  margin: 0 0 1.5rem 0;
+  color: $text-color;
+}
+
+.send-verification {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+}
+
+.or {
+  width: 100%;
+  font-size: 2rem;
+  margin: 1.25rem 0 0.75rem 0;
+  text-align: center;
+  font-weight: 600;
+  color: $text-color;
+}
+
+.new-account {
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  span {
+    cursor: pointer;
+    transition: 0.25s;
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+.back-to-login {
+  float: right;
+  margin-right: 0.5rem;
+  color: $secondary;
+  transition: 0.25s;
+}
+
+.password-requirements-container {
+  height: 0; /* this container's changing height is what gives the password requirements list the expand/collapse effect */
+  transition: all 0.4s ease-in-out;
+  &.active {
+    height: clamp(85px, 11vh, 95px);
+    margin: 5px 0;
+  }
+}
+
+.password-requirements {
+  list-style: none;
+  font-size: $small;
+  margin: 0;
+  height: 0;
+  padding-left: 1.75rem;
+  overflow: hidden;
+  transition: all 0.4s ease-in-out;
+  &.active {
+    height: 100%;
+  }
+  * {
+    transition: 0.4s;
+    i {
+      transition: 0.125s;
+    }
+  }
+}
+
+.tos {
+  width: auto;
+  height: 60px;
+  margin: 0.5rem 0;
+  padding: 0 0.5rem;
+  font-size: 9.7px;
+  .tos-text {
+    width: calc(100% - 2rem);
+    a {
+      text-decoration: underline;
+      color: $secondary;
+    }
+  }
+  .checkmark {
+    width: 2rem !important;
+    height: 2rem !important;
+    &::after {
+      width: 0.5rem;
+      height: 1rem;
+    }
+  }
+}
+
+/* a tooltip will be shown only on devices that can have hover effects */
+@media (hover: hover) {
+  .password-eye:hover [data-tooltip] {
+    &::before,
+    &:after {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(2.25rem);
+    }
+  }
+  [data-tooltip] {
+    text-transform: capitalize;
+    font-style: normal;
+    &::before,
+    &::after {
+      position: absolute;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.5s;
+      right: 0;
+      z-index: 2;
+    }
+    &::before {
+      margin-top: 12px;
+      width: 120px;
+      padding: 7px;
+      border-radius: 5px;
+      background-color: $primary;
+      color: $title-color;
+      content: attr(data-tooltip);
+      text-align: center;
+      font-size: $small;
+      line-height: 1.4;
+    }
+    &::after {
+      margin-left: -15px;
+      border-bottom: 15px solid $primary;
+      border-right: 15px solid transparent;
+      border-left: 15px solid transparent;
+      content: "";
+    }
+  }
+}
+
+/* animation class for invalid sumbissions of a form that will be added with javascript */
+.invalid-submission {
+  animation: shake 0.825s cubic-bezier(.36,.07,.19,.97);
+}
+
+@keyframes shake {
+  10%, 90% {
+    margin: 0 1.5px 0 -1.5px;
+  }
+  
+  20%, 80% {
+    margin: 0 -3px 0 3px;
+  }
+
+  30%, 50%, 70% {
+    margin: 0 6px 0 -6px;
+  }
+
+  40%, 60% {
+    margin: 0 -6px 0 6px;
+  }
+}
+
+/* for extra small devices */
+@media (max-width: 355px) {
+  :root {
+    --large-font-size: 2.5rem;
+    --medium-font-size: 0.825rem;
+    --small-font-size: 0.5rem;
+  }
+  .checkmark-label .checkmark::after {
+    width: 3.75px;
+    height: 7.5px;
+    transform: translate(-50%, calc(-50% - 1px)) rotate(45deg);
+  }
+  .label-wrapper {
+    transform: translateY(30px);
+    &.active {
+      transform: translateY(1px);
+      font-size: 0.75rem;
+    }
+  }
+  .label.active::after {
+    height: 2px;
+  }
+  .border-corner-cover {
+    border-width: 2px;
+  }
+  .input {
+    border-width: 2px;
+  }
+  .input-icon {
+    transform: translateY(1.5rem);
+    font-size: 1.5rem;
+  }
+  .password-icon {
+    right: 3rem;
+  }
+  .password-eye-line {
+    transform: translateX(-1.5rem);
+  }
+  .password-requirements-container.active {
+    height: 48px;
+  }
+  .tos {
+    font-size: 2.42vw;
+    .checkmark::after {
+      width: 0.5rem;
+      height: 1rem;
+      transform: translate(-50%, calc(-50% - 2px)) rotate(45deg);
+    }
+  }
+}
+
+/* show the mobile-landscape blocking div */
+@media (max-width: 967px) and (min-aspect-ratio: 13/9) {
+  .block-mobile-landscape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+/* the reason min-aspect-ratio is used instead of oreintation above, is because orientation gets broken on phone keyboard popup */
+
+@media (min-width: 968px) and (max-width: 1439px) {
+  /* smaller slider on bigger screens */
+  .slider {
+    width: 50%;
+    &.slide {
+      margin-left: 50%;
+    }
+  }
+}
+
+@media (min-width: 1440px) {
+  .slider {
+    width: 30%;
+    &.slide {
+      margin-left: 70%;
+    }
+  }
+}
+
+/* all what's below is for extra themes and will not be documented */
+.open-themes-button {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s;
+  cursor: pointer;
+  background: $primary;
+  color: $title-color;
+  border: 5px solid $secondary;
+  border-radius: 50%;
+  &:hover {
+    background: $secondary;
+  }
+}
+
+.themes {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+  transform: translateY(105%);
+  width: 340px;
+  height: max-content;
+  background: $body-color;
+  border: 3.5px solid $secondary;
+  border-radius: 20px;
+  padding: 1rem;
+  font-size: $small;
+  color: $title-color;
+  transition: 0.8s ease;
+  overflow: hidden;
+  &.active {
+    transform: translateY(-1.5rem);
+  }
+}
+
+.close-themes-button {
+  float: right;
+  text-align: end;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: 0.25s;
+  &:hover {
+    color: $primary;
+  }
+}
+
+.theme-styles-container {
+  display: grid;
+  grid-gap: 0.5rem 1rem;
+  grid-template-columns: 50% 50%;
+  margin: 1.5rem 0 1rem 0;
+}
+
+.extra-theme-options {
+  margin-top: 1rem;
+  .add-own-theme, .remove-themes {
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .add-own-theme {
+    color: $secondary;
+  }
+  .remove-themes {
+    float: right;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: $invalid;
+  }
+}
+
+.own-theme, .remove-themes-confirm-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  transition: 0.8s ease;
+}
+
+.back-to-themes {
+  cursor: pointer;
+    &:hover {
+      color: $primary;
+    }
+}
+
+.own-theme {
+  padding: 1rem;
+  transform: translateX(-100%);
+  &.active {
+    transform: translateX(0);
+  }
+  .clear-custom-theme {
+    float: right;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+    }
+  }
+  form {
+    padding: 0 0.35rem;
+    margin-top: 1rem;
+    div {
+      label {
+        color: $title-color;
+        padding: 2px;
+      }
+      input {
+        border: 0;
+        background: transparent;
+        color: $text-color;
+        outline: none;
+        &[type=color] {
+          width: $medium;
+          height: $medium;
+          padding-right: 5px;
+        }
+      }
+    }
+    div.colors {
+      display: grid;
+      grid-gap: 0.725rem;
+      grid-template-columns: 50% 50%;
+      margin: 0.725rem 0;
+    }
+    > div:first-child {
+      border-bottom: 1px solid $primary;
+    }
+  }
+}
+
+.remove-themes-confirm-container {
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: $medium;
+  transform: translateX(100%);
+  > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  &.active {
+    transform: translateX(0);
+  }
+}
+
+.remove-themes-confirm {
+  color: $invalid;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* if your device is this small you are making my life harder and don't deserve to customize your theme */
+@media (max-width: 355px) /* I also had max height but removed it for this pen */ {
+  .open-themes-button, .themes {
+    display: none;
+  }
+}
+
+body {
+  &.winter {
+    --background-image: url(https://www.teahub.io/photos/full/124-1245972_wallpaper-house-winter-snow-forest-comfort-winter-forest.jpg);
+    --primary-color: #3b3b40;
+    --secondary-color: #a68851;
+    --body-color: #747c8c;
+    --body-color-gradient: #747c8cec;
+    --title-color: #ccd0d9;
+    --text-color: #aab3bf;
+    --valid-color: #6eba9e;
+    --invalid-color: #e25822; 
+  }
+  &.fall {
+    --background-image: url(https://wallpaperaccess.com/full/1164947.jpg);
+    --primary-color: #0D0D0D;
+    --secondary-color: #d46707;
+    --body-color: #773b03;
+    --body-color-gradient: #773b03e0;
+    --title-color: #e9f6f8;
+    --text-color: #daf0f5;
+    --valid-color: #03755e;
+    --invalid-color: #d63114;
+  }
+  &.sunset {
+    --background-image: url(https://i.imgur.com/o6eWHwI_d.webp?maxwidth=1520&fidelity=grand);
+    --primary-color: #262523;
+    --secondary-color: #b98e66;
+    --body-color: #9b4e22;
+    --body-color-gradient: #9b4e22ec;
+    --title-color: #c9cdd1;
+    --text-color: #acb8c5;
+    --valid-color: #A5FAD6;
+    --invalid-color: #F54040;
+    --transparent: rgba(0, 0, 0, 0);
+  }
+  &.mountain {
+    --background-image: url(https://i.imgur.com/NWC1ak5_d.webp?maxwidth=1520&fidelity=grand);
+    --primary-color: #F2EEEB;
+    --secondary-color: #a57c6e;
+    --body-color: #08080D;
+    --body-color-gradient: #08080DEC;
+    --title-color: #a5a4a8;
+    --text-color: #848488;
+    --valid-color: #00ff00;
+    --invalid-color: #ff0000;
+  }
+  &.city {
+    --background-image: url(https://free4kwallpapers.com/uploads/originals/2019/05/20/streetlight-wallpaper.jpg);
+    --primary-color: #41497a;
+    --secondary-color: #04326d;
+    --body-color: #0C0D07;
+    --body-color-gradient: #0C0D07EC;
+    --title-color: #e6e3c1;
+    --text-color: #cbcbcb;
+    --valid-color: #07F292;
+    --invalid-color: #F20530;
+    --transparent: rgba(0, 0, 0, 0);
+  }
+  &.ocean {
+    --background-image: url(https://i.imgur.com/Ajtf6P2.jpeg);
+    --primary-color: #063135;
+    --secondary-color: #7ddde6;
+    --body-color: #038c8c;
+    --body-color-gradient: #038c8cec;
+    --title-color: #E4EBF2;
+    --text-color: #BACBD9;
+    --valid-color: #05cf93;
+    --invalid-color: #692c0b;
+  }
+  &.lanterns {
+    --background-image: url(https://storge.pic2.me/upload/786/5fd0b499503507.44994773.jpg);
+    --primary-color: #F29BAB;
+    --secondary-color: #8188e9;
+    --body-color: #010440;
+    --body-color-gradient: #010440ec;
+    --title-color: #f3ebf0;
+    --text-color: #f1e1eb;
+    --valid-color: #91f6b2;
+    --invalid-color: #db2b66;
+    --transparent: rgba(0, 0, 0, 0);
+  }
+}
+
+
